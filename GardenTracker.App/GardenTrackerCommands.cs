@@ -5,15 +5,15 @@ namespace GardenTracker.App;
 
 public class GardenTrackerCommands
 {
-    private List<IPlant> plants = new List<IPlant>();
-    private List<IPlant> fruitPlants = new List<IPlant>();
-    private List<IPlant> vegetablePlants = new List<IPlant>();
+    private readonly List<IPlant> _plants = new List<IPlant>();
+    private readonly List<IPlant> _fruitPlants = new List<IPlant>();
+    private readonly List<IPlant> _vegetablePlants = new List<IPlant>();
 
     public void Greeting()
     {
         Console.WriteLine("Welcome to Garden Tracker!\n" +
-                          "You can store information about " +
-                          "fruits or vegetables.");
+                          "You can store information " +
+                          "\nabout fruits or vegetables.");
         Console.WriteLine("--------------------------------------");
     }
 
@@ -49,143 +49,150 @@ public class GardenTrackerCommands
     {
         while (true)
         {
-            Console.WriteLine("Plant Types: " +
-                              "\n1. Fruit" +
-                              "\n2. Vegetable");
-            Console.Write("\nEnter the name of the plant type (or enter 0 to cancel): ");
-            var plantType = Console.ReadLine()?.ToUpper();
-            
-           
-            if (plantType == "FRUIT")
+            try
             {
-                Console.Write("Enter common name: ");
-                var commonName = Console.ReadLine();
-                Console.Write("Enter scientific name: ");
-                var scientificName = Console.ReadLine();
-                Console.Write("Enter description: ");
-                var description = Console.ReadLine();
-                Console.Write("Enter planting date: ");
-                var plantingDate = Console.ReadLine();
+                Console.WriteLine("Plant Types: " +
+                                  "\n1. Fruit" +
+                                  "\n2. Vegetable");
+                Console.Write("\nEnter the name of the plant type (or enter 0 to cancel): ");
+                var plantType = Console.ReadLine()?.ToUpper();
 
-                int wateringSchedule;
-
-                while (true)
+                if (plantType == "FRUIT")
                 {
-                    try
+                    Console.Write("Enter common name: ");
+                    var commonName = Console.ReadLine();
+                    Console.Write("Enter scientific name: ");
+                    var scientificName = Console.ReadLine();
+                    Console.Write("Enter description: ");
+                    var description = Console.ReadLine();
+                    Console.Write("Enter planting date: ");
+                    var plantingDate = Console.ReadLine();
+
+                    int wateringSchedule;
+
+                    while (true)
                     {
-                        Console.Write("Enter watering schedule in days: ");
-                        wateringSchedule = Convert.ToInt32(Console.ReadLine());
-                        break;
+                        try
+                        {
+                            Console.Write("Enter watering schedule in days: ");
+                            wateringSchedule = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input. You must enter a whole number.");
+                        }
                     }
-                    catch (FormatException)
+
+                    int ripeningTime;
+
+                    while (true)
                     {
-                        Console.WriteLine("Invalid input. You must enter a whole number.");
+                        try
+                        {
+                            Console.Write("Enter ripening time in days: ");
+                            ripeningTime = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input. You must enter a whole number.");
+                        }
                     }
+
+                    var fruit = new Fruit(_plants.Count + 1, plantType, commonName, scientificName, description,
+                        plantingDate, wateringSchedule, ripeningTime);
+
+                    _plants.Add(fruit);
+                    _fruitPlants.Add(fruit);
+
+                    Console.WriteLine($"{commonName} added to list.");
+                    Console.WriteLine("--------------------------------------");
+                    break;
                 }
 
-                int ripeningTime;
-
-                while (true)
+                if (plantType == "VEGETABLE")
                 {
-                    try
+                    Console.Write("Enter common name: ");
+                    var commonName = Console.ReadLine();
+                    Console.Write("Enter scientific name: ");
+                    var scientificName = Console.ReadLine();
+                    Console.Write("Enter description: ");
+                    var description = Console.ReadLine();
+                    Console.Write("Enter planting date: ");
+                    var plantingDate = Console.ReadLine();
+
+                    int wateringSchedule;
+
+                    while (true)
                     {
-                        Console.Write("Enter ripening time in days: ");
-                        ripeningTime = Convert.ToInt32(Console.ReadLine());
-                        break;
+                        try
+                        {
+                            Console.Write("Enter watering schedule in days: ");
+                            wateringSchedule = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input. You must enter a whole number.");
+                        }
                     }
-                    catch (FormatException)
+
+                    double sowingDepth;
+
+                    while (true)
                     {
-                        Console.WriteLine("Invalid input. You must enter a whole number.");
+                        try
+                        {
+                            Console.Write("Enter sowing depth in inches: ");
+                            sowingDepth = Convert.ToDouble(Console.ReadLine());
+                            break;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input. You must enter a whole number or decimal value.");
+                        }
                     }
+
+                    var vegetable = new Vegetable(_plants.Count + 1, plantType, commonName, scientificName, description,
+                        plantingDate, wateringSchedule, sowingDepth);
+
+                    _plants.Add(vegetable);
+                    _vegetablePlants.Add(vegetable);
+
+                    Console.WriteLine($"{commonName} added to list.");
+                    Console.WriteLine("--------------------------------------");
+                    break;
                 }
 
-                var fruit = new Fruit(plants.Count + 1, plantType, commonName, scientificName, description,
-                    plantingDate, wateringSchedule, ripeningTime);
+                else if (plantType != null && int.Parse(plantType) == 0)
+                {
+                    Console.WriteLine("Operation canceled.");
+                    break;
+                }
 
-                plants.Add(fruit);
-                fruitPlants.Add(fruit);
-
-                Console.WriteLine($"{commonName} added to list.");
-                Console.WriteLine("--------------------------------------");
-                break;
+                Console.WriteLine("Invalid input. You must enter fruit, vegetable, or 0.\n");
             }
-
-            if (plantType == "VEGETABLE") //add try and catch
+            catch (FormatException)
             {
-                Console.Write("Enter common name: ");
-                var commonName = Console.ReadLine();
-                Console.Write("Enter scientific name: ");
-                var scientificName = Console.ReadLine();
-                Console.Write("Enter description: ");
-                var description = Console.ReadLine();
-                Console.Write("Enter planting date: ");
-                var plantingDate = Console.ReadLine();
-
-                int wateringSchedule;
-
-                while (true)
-                {
-                    try
-                    {
-                        Console.Write("Enter watering schedule in days: ");
-                        wateringSchedule = Convert.ToInt32(Console.ReadLine());
-                        break;
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Invalid input. You must enter a whole number.");
-                    }
-                }
-
-                double sowingDepth;
-
-                while (true)
-                {
-                    try
-                    {
-                        Console.Write("Enter sowing depth in inches: ");
-                        sowingDepth = Convert.ToDouble(Console.ReadLine());
-                        break;
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Invalid input. You must enter a whole number or decimal value.");
-                    }
-                }
-
-                var vegetable = new Vegetable(plants.Count + 1, plantType, commonName, scientificName, description,
-                    plantingDate, wateringSchedule, sowingDepth);
-
-                plants.Add(vegetable);
-                vegetablePlants.Add(vegetable);
-
-                Console.WriteLine($"{commonName} added to list.");
-                Console.WriteLine("--------------------------------------");
-                break;
+                Console.WriteLine("Invalid input. You must enter numbers fruit, vegetable, or (0).\n");
             }
-            
-            if (plantType != null && int.Parse(plantType) == 0)
-            {
-                Console.WriteLine("Operation canceled.");
-                break; 
-            }
-
-            Console.WriteLine("Invalid input. You must enter fruit, vegetable, or 0.\n");
         }
     }
-    
+
     public void RemovePlant()
     {
         var plantsRemoved = false;
 
-        if (plants.Count >= 1)
+        if (_plants.Count >= 1)
         {
             Console.WriteLine("Current plants in garden: ");
 
-            foreach (var plant in plants)
+            foreach (var plant in _plants)
             {
                 Console.WriteLine($"\nId: {plant.Id}" +
-                                  $"\nCommon Name: {plant.CommonName}\n");
+                                  $"\nPlant Type: {plant.PlantType}" +
+                                  $"\nCommon Name: {plant.CommonName}");
             }
 
             int inputId;
@@ -194,23 +201,42 @@ public class GardenTrackerCommands
             {
                 try
                 {
-                    Console.Write("Enter an Id to remove a plant (or enter 0 to cancel): ");
+                    Console.Write("\nEnter an Id to remove a plant (or enter 0 to cancel): ");
                     inputId = Convert.ToInt32(Console.ReadLine());
 
                     if (inputId == 0)
                     {
                         Console.WriteLine("Operation canceled.");
+                        plantsRemoved = true;
                         break;
                     }
 
-                    var plantToRemove = plants.FirstOrDefault(p => p.Id == inputId);
+                    var plantToRemove = _plants.FirstOrDefault(p => p.Id == inputId);
 
                     if (plantToRemove != null)
                     {
-                        plants.Remove(plantToRemove);
+                        _plants.Remove(plantToRemove);
                         Console.WriteLine($"Plant with ID {inputId} removed.");
-                        plantsRemoved = true;
+
+                        if (plantToRemove is Fruit fruitPlant)
+                        {
+                            var fruitPlantToRemove = _fruitPlants.FirstOrDefault(p => p.Id == fruitPlant.Id);
+                            if (fruitPlantToRemove != null)
+                            {
+                                _fruitPlants.Remove(fruitPlant);
+                            }
+                        }
+                        else if (plantToRemove is Vegetable vegetablePlant)
+                        {
+                            var vegetablePlantToRemove =
+                                _vegetablePlants.FirstOrDefault(p => p.Id == vegetablePlant.Id);
+                            if (vegetablePlantToRemove != null)
+                            {
+                                _vegetablePlants.Remove(vegetablePlant);
+                            }
+                        }
                     }
+
                     else
                     {
                         Console.WriteLine("There is no plant found with the specified ID.");
@@ -233,15 +259,16 @@ public class GardenTrackerCommands
 
     public void DisplayPlant()
     {
-        if (plants.Count != 0)
+        if (_plants.Count != 0)
         {
             Console.WriteLine("Your list of plants: ");
-            foreach (var plant in plants)
+            foreach (var plant in _plants)
             {
                 if (plant is Fruit fruit)
                 {
                     Console.WriteLine($"\nPlant Type: {fruit.PlantType}\n" +
                                       $"*******************************\n" +
+                                      $"Id: {fruit.Id}\n" +
                                       $"Common Name: {fruit.CommonName}\n" +
                                       $"Scientific Name: {fruit.ScientificName}\n" +
                                       $"Description: {fruit.Description}\n" +
@@ -253,6 +280,7 @@ public class GardenTrackerCommands
                 {
                     Console.WriteLine($"\nPlant Type: {vegetable.PlantType}\n" +
                                       $"*******************************\n" +
+                                      $"Id: {vegetable.Id}\n" +
                                       $"Common Name: {vegetable.CommonName}\n" +
                                       $"Scientific Name: {vegetable.ScientificName}\n" +
                                       $"Description: {vegetable.Description}\n" +
@@ -262,9 +290,9 @@ public class GardenTrackerCommands
                 }
             }
 
-            Console.WriteLine($"\nNumber of fruit plants: {fruitPlants.Count}" +
-                              $"\nNumber of vegetable plants: {vegetablePlants.Count}" +
-                              $"\nNumber of total plants: {plants.Count}");
+            Console.WriteLine($"\nNumber of fruit plants: {_fruitPlants.Count}" +
+                              $"\nNumber of vegetable plants: {_vegetablePlants.Count}" +
+                              $"\nNumber of total plants: {_plants.Count}");
 
             Console.ReadKey();
         }
