@@ -62,6 +62,7 @@ public class RemovePlantCommand : ICommand
                                 _fruitPlants.Remove(fruitPlant);
                             }
                         }
+                        
                         else if (plantToRemove is Vegetable vegetablePlant)
                         {
                             var vegetablePlantToRemove =

@@ -33,8 +33,9 @@ public class DisplayPlantCommand : ICommand
                                       $"Description: {fruit.Description}\n" +
                                       $"Planting Date: {fruit.PlantingDate}\n" +
                                       $"Watering Schedule: Every {fruit.WateringSchedule} day/s\n" +
-                                      $"Ripening Time: Every {fruit.RipeningTime} day/s");
+                                      $"Ripening Time: {fruit.RipeningTime} day/s");
                 }
+                
                 else if (plant is Vegetable vegetable)
                 {
                     Console.WriteLine($"\nPlant Type: {vegetable.PlantType}\n" +
