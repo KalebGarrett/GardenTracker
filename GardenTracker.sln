@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenTracker.ConsoleApp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenTracker.App", "GardenTracker.App\GardenTracker.App.csproj", "{40D75FF9-7B3D-4DF4-9823-2346D4B36526}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenTracker.Models", "GardenTracker.Models\GardenTracker.Models.csproj", "{5D9DF8C7-FF9E-4AED-AD3A-1EC08E87615F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{40D75FF9-7B3D-4DF4-9823-2346D4B36526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40D75FF9-7B3D-4DF4-9823-2346D4B36526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40D75FF9-7B3D-4DF4-9823-2346D4B36526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9DF8C7-FF9E-4AED-AD3A-1EC08E87615F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9DF8C7-FF9E-4AED-AD3A-1EC08E87615F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9DF8C7-FF9E-4AED-AD3A-1EC08E87615F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9DF8C7-FF9E-4AED-AD3A-1EC08E87615F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
